@@ -16,7 +16,7 @@ export function DashboardSidebar() {
   const pathname = usePathname();
 
   return (
-    <div className="w-[204px] border-r border-gray-200 dark:border-gray-700 flex flex-col dark:bg-gray-900">
+    <div className="w-[204px] border-r  border-gray-200 dark:border-gray-700 flex flex-col dark:bg-gray-900">
       <div className="p-4 flex items-center gap-2 border-b border-gray-200 dark:border-gray-700">
         <Eye className="text-primary" size={28} />
         <span className="font-medium text-lg dark:text-white">Magnate</span>
