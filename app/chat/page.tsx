@@ -129,11 +129,11 @@ export default function TechMateChat() {
                 </div>
               </div>
               <div className="text-gray-800">
-                Hello! There could be several reasons why your microwave isn't
+                Hello! There could be several reasons why your microwave isn&apos;t
                 heating food. It could be a problem with the magnetron, the high
                 voltage diode, or the capacitor. First, ensure that the
                 microwave is plugged in securely and that the circuit breaker
-                hasn't tripped. If everything seems fine, it's best to consult a
+                hasn&apos;t tripped. If everything seems fine, it&apos;s best to consult a
                 professional technician to diagnose and repair the issue, as
                 working with high-voltage components can be dangerous.
               </div>
@@ -151,7 +151,7 @@ export default function TechMateChat() {
               </button>
             </div>
             <div className="text-gray-800">
-              Natasha.AI, my dishwasher isn't draining properly. What could be
+              Natasha.AI, my dishwasher isn&apos;t draining properly. What could be
               causing this issue, and how can I troubleshoot it?
             </div>
           </div>
@@ -176,9 +176,9 @@ export default function TechMateChat() {
                 </div>
               </div>
               <div className="text-gray-800">
-                Your dishwasher's drain hose might be clogged or kinked. Try
+                Your dishwasher&apos;s drain hose might be clogged or kinked. Try
                 cleaning it or straightening it out. Also, check the
-                dishwasher's filter for any debris. If the problem persists,
+                dishwasher&apos;s filter for any debris. If the problem persists,
                 consider calling a professional technician for further
                 assistance.
               </div>

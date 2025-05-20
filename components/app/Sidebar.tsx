@@ -13,7 +13,6 @@ import historyIcon from "@/public/images/historyIcon.svg";
 import settingsIcon from "@/public/images/settingsIcon.svg";
 import helpIcon from "@/public/images/helpIcon.svg";
 import { Search, Moon, Sun } from "lucide-react";
-import { useState } from "react";
 
 export function Sidebar() {
   const { setTheme, theme } = useTheme();
