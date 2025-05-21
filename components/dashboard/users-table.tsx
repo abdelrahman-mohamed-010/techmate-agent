@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import { Avatar } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
@@ -69,117 +70,204 @@ const users = [
 ];
 
 export function UsersTable() {
+  const [visibleColumns, setVisibleColumns] = useState<string[]>([
+    "profile",
+    "name",
+    "email",
+    "status",
+    "subscription",
+  ]);
+
+  // Show different columns based on screen size
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 640) {
+        setVisibleColumns(["profile", "name", "status"]);
+      } else if (window.innerWidth < 1024) {
+        setVisibleColumns([
+          "profile",
+          "name",
+          "email",
+          "status",
+          "subscription",
+        ]);
+      } else {
+        setVisibleColumns([
+          "profile",
+          "name",
+          "email",
+          "contact",
+          "account",
+          "subscription",
+          "status",
+          "joinDate",
+        ]);
+      }
+    };
+
+    // Initial check
+    handleResize();
+
+    // Add resize listener
+    window.addEventListener("resize", handleResize);
+
+    // Clean up
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const isColumnVisible = (columnName: string) =>
+    visibleColumns.includes(columnName);
+
   return (
-    <div className="overflow-x-auto max-h-[440px]">
-      <table className="w-full">
-        <thead>
-          <tr className="relative after:absolute after:left-4 after:right-4 after:bottom-0 after:border-b after:border-gray-200 dark:after:border-gray-700">
-            <th className="text-left p-4 font-medium text-[#242424] dark:text-white">
-              Profile
-            </th>
-            <th className="text-left p-4 font-medium text-[#242424] dark:text-white">
-              Name
-            </th>
-            <th className="text-left p-4 font-medium text-[#242424] dark:text-white">
-              Email Address
-            </th>
-            <th className="text-left p-4 font-medium text-[#242424] dark:text-white">
-              Contact No
-            </th>
-            <th className="text-left p-4 font-medium text-[#242424] dark:text-white">
-              Account No
-            </th>
-            <th className="text-left p-4 font-medium text-[#242424] dark:text-white">
-              Subscription
-            </th>
-            <th className="text-left p-4 font-medium text-[#242424] dark:text-white">
-              Status
-            </th>
-            <th className="text-left p-4 font-medium text-[#242424] dark:text-white">
-              Join Date
-            </th>
-          </tr>
-        </thead>
-        <tbody className="dark:text-gray-200">
-          {users.map((user, index) => (
-            <tr
-              key={user.id}
-              className={
-                index === users.length - 1
-                  ? ""
-                  : "relative after:absolute after:left-4 after:right-4 after:bottom-0 after:border-b after:border-gray-200 dark:after:border-gray-700"
-              }
-            >
-              <td
-                className={`pt-4 pr-4 pl-4 ${
-                  index === users.length - 1 ? "pb-0" : "pb-4"
-                }`}
-              >
-                <Avatar>
-                  <Image src={manImg} alt={user.name} width={60} height={60} />
-                </Avatar>
-              </td>
-              <td
-                className={`pt-4 pr-4 pl-4 ${
-                  index === users.length - 1 ? "pb-0" : "pb-4"
-                }`}
-              >
-                {user.name}
-              </td>
-              <td
-                className={`pt-4 pr-4 pl-4 ${
-                  index === users.length - 1 ? "pb-0" : "pb-4"
-                }`}
-              >
-                {user.email}
-              </td>
-              <td
-                className={`pt-4 pr-4 pl-4 ${
-                  index === users.length - 1 ? "pb-0" : "pb-4"
-                }`}
-              >
-                {user.contact}
-              </td>
-              <td
-                className={`pt-4 pr-4 pl-4 ${
-                  index === users.length - 1 ? "pb-0" : "pb-4"
-                }`}
-              >
-                {user.account}
-              </td>
-              <td
-                className={`pt-4 pr-4 pl-4 ${
-                  index === users.length - 1 ? "pb-0" : "pb-4"
-                }`}
-              >
-                {user.subscription}
-              </td>
-              <td
-                className={`pt-4 pr-4 pl-4 ${
-                  index === users.length - 1 ? "pb-0" : "pb-4"
-                }`}
-              >
-                <Badge
-                  className={`w-18 text-center py-1.5 rounded-xl font-medium ${
-                    user.status === "Active"
-                      ? "bg-tertiary text-white hover:bg-tertiary/90"
-                      : "bg-gray-200 text-gray-600 hover:bg-gray-200/90 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-700/90"
-                  }`}
-                >
-                  {user.status}
-                </Badge>
-              </td>
-              <td
-                className={`pt-4 pr-4 pl-4 ${
-                  index === users.length - 1 ? "pb-0" : "pb-4"
-                }`}
-              >
-                {user.joinDate}
-              </td>
+    <div className="overflow-x-auto pb-2 -mx-2 px-2">
+      <div className="min-w-full md:min-w-[720px]">
+        <table className="w-full table-auto">
+          <thead>
+            <tr className="relative after:absolute after:left-4 after:right-4 after:bottom-0 after:border-b after:border-gray-200 dark:after:border-gray-700 text-xs md:text-sm">
+              {isColumnVisible("profile") && (
+                <th className="text-left p-2 font-medium text-[#242424] dark:text-white whitespace-nowrap">
+                  Profile
+                </th>
+              )}
+              {isColumnVisible("name") && (
+                <th className="text-left p-2 font-medium text-[#242424] dark:text-white whitespace-nowrap">
+                  Name
+                </th>
+              )}
+              {isColumnVisible("email") && (
+                <th className="text-left p-2 font-medium text-[#242424] dark:text-white whitespace-nowrap hidden sm:table-cell">
+                  Email
+                </th>
+              )}
+              {isColumnVisible("contact") && (
+                <th className="text-left p-2 font-medium text-[#242424] dark:text-white whitespace-nowrap hidden lg:table-cell">
+                  Contact
+                </th>
+              )}
+              {isColumnVisible("account") && (
+                <th className="text-left p-2 font-medium text-[#242424] dark:text-white whitespace-nowrap hidden lg:table-cell">
+                  Account No
+                </th>
+              )}
+              {isColumnVisible("subscription") && (
+                <th className="text-left p-2 font-medium text-[#242424] dark:text-white whitespace-nowrap hidden sm:table-cell">
+                  Plan
+                </th>
+              )}
+              {isColumnVisible("status") && (
+                <th className="text-left p-2 font-medium text-[#242424] dark:text-white whitespace-nowrap">
+                  Status
+                </th>
+              )}
+              {isColumnVisible("joinDate") && (
+                <th className="text-left p-2 font-medium text-[#242424] dark:text-white whitespace-nowrap hidden lg:table-cell">
+                  Join Date
+                </th>
+              )}
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody className="dark:text-gray-200 text-xs md:text-sm">
+            {users.map((user, index) => (
+              <tr
+                key={user.id}
+                className={
+                  index === users.length - 1
+                    ? ""
+                    : "relative after:absolute after:left-4 after:right-4 after:bottom-0 after:border-b after:border-gray-200 dark:after:border-gray-700"
+                }
+              >
+                {isColumnVisible("profile") && (
+                  <td
+                    className={`py-2 px-2 ${
+                      index === users.length - 1 ? "pb-0" : ""
+                    }`}
+                  >
+                    <Avatar className="h-8 w-8 md:h-10 md:w-10">
+                      <Image
+                        src={manImg}
+                        alt={user.name}
+                        width={40}
+                        height={40}
+                      />
+                    </Avatar>
+                  </td>
+                )}
+                {isColumnVisible("name") && (
+                  <td
+                    className={`py-2 px-2 ${
+                      index === users.length - 1 ? "pb-0" : ""
+                    }`}
+                  >
+                    {user.name}
+                  </td>
+                )}
+                {isColumnVisible("email") && (
+                  <td
+                    className={`py-2 px-2 ${
+                      index === users.length - 1 ? "pb-0" : ""
+                    } hidden sm:table-cell`}
+                  >
+                    {user.email}
+                  </td>
+                )}
+                {isColumnVisible("contact") && (
+                  <td
+                    className={`py-2 px-2 ${
+                      index === users.length - 1 ? "pb-0" : ""
+                    } hidden lg:table-cell`}
+                  >
+                    {user.contact}
+                  </td>
+                )}
+                {isColumnVisible("account") && (
+                  <td
+                    className={`py-2 px-2 ${
+                      index === users.length - 1 ? "pb-0" : ""
+                    } hidden lg:table-cell`}
+                  >
+                    {user.account}
+                  </td>
+                )}
+                {isColumnVisible("subscription") && (
+                  <td
+                    className={`py-2 px-2 ${
+                      index === users.length - 1 ? "pb-0" : ""
+                    } hidden sm:table-cell`}
+                  >
+                    {user.subscription}
+                  </td>
+                )}
+                {isColumnVisible("status") && (
+                  <td
+                    className={`py-2 px-2 ${
+                      index === users.length - 1 ? "pb-0" : ""
+                    }`}
+                  >
+                    <Badge
+                      className={`text-xs text-center py-1 px-2 md:px-3 rounded-xl font-medium ${
+                        user.status === "Active"
+                          ? "bg-tertiary text-white hover:bg-tertiary/90"
+                          : "bg-gray-200 text-gray-600 hover:bg-gray-200/90 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-700/90"
+                      }`}
+                    >
+                      {user.status}
+                    </Badge>
+                  </td>
+                )}
+                {isColumnVisible("joinDate") && (
+                  <td
+                    className={`py-2 px-2 ${
+                      index === users.length - 1 ? "pb-0" : ""
+                    } hidden lg:table-cell`}
+                  >
+                    {user.joinDate}
+                  </td>
+                )}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }

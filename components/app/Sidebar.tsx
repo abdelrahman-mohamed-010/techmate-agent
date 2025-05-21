@@ -18,8 +18,8 @@ export function Sidebar() {
   const { setTheme, theme } = useTheme();
 
   return (
-    <div className="w-[240px] border-r border-gray-200 flex flex-col h-screen">
-      <div className=" pt-3">
+    <div className="w-[240px] h-full border-r border-gray-200 flex flex-col bg-white dark:bg-gray-900 overflow-y-auto">
+      <div className="pt-3">
         <div className="relative w-56 h-14 -translate-x-9">
           <Image
             src={logo}
@@ -43,7 +43,7 @@ export function Sidebar() {
       <div className="p-4">
         <Button
           variant="outline"
-          className="w-[180px] justify-start gap-2 bg-white border-gray-300 rounded-xl"
+          className="w-full justify-start gap-2 bg-white border-gray-300 rounded-xl"
         >
           <Image src={plusIcon} alt="New chat" width={20} height={20} />
           <span>New AI Chat</span>

@@ -28,52 +28,42 @@ export function TechMatePanel({
   onDelete,
 }: TechMatePanelProps) {
   return (
-    <Card className="w-[420px] border-none mb-2 rounded-xl overflow-hidden mx-auto bg-white dark:bg-gray-800">
+    <Card className="w-full border-none mb-2 rounded-xl overflow-hidden bg-white dark:bg-gray-800 shadow-sm hover:shadow-md transition-shadow">
       {/* Header */}
-      <div className="p-3 py-0 flex items-start justify-center gap-3 bg-white dark:bg-gray-800">
-        <div className="p-2 rounded-lg bg-red-100 dark:bg-red-900/30 flex items-center justify-center">
-          <MessageSquare size={20} className="text-red-400" />
+      <div className="p-3 pt-3 flex items-start gap-2 bg-white dark:bg-gray-800">
+        <div className="p-1.5 rounded-lg bg-red-100 dark:bg-red-900/30 flex items-center justify-center shrink-0 mt-0.5">
+          <MessageSquare size={16} className="text-red-400" />
         </div>
-        <div className="font-medium text-[18px] leading-snug text-black dark:text-white">
+        <div className="font-medium text-sm leading-snug text-black dark:text-white line-clamp-2">
           {question}
         </div>
       </div>
 
       {/* Answer area */}
-      <div className="p-4 pb-2 bg-[#F7F7FA] dark:bg-gray-700">
+      <div className="p-3 pb-2 bg-[#F7F7FA] dark:bg-gray-700">
         <Textarea
           placeholder="Answer"
-          className="min-h-[90px] rounded-lg text-base px-4 py-3 mb-4 border-0 bg-white dark:bg-gray-600 shadow-card dark:text-white dark:placeholder-gray-400"
-          style={{
-            boxShadow: "0px 2px 8px 0px #0FA0CE0A",
-            fontWeight: 400,
-            color: "#242424",
-            marginBottom: "20px",
-          }}
+          className="min-h-[70px] rounded-lg text-xs px-3 py-2 mb-3 border-0 bg-white dark:bg-gray-600 shadow-sm dark:text-white dark:placeholder-gray-400 resize-none"
         />
 
         {/* Files */}
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-1.5">
           {files.map((file) => (
             <div
               key={file.id}
-              className="flex items-center justify-between rounded-lg bg-white dark:bg-gray-600 px-3 py-[9px] border-none shadow-card"
-              style={{
-                boxShadow: "0px 2px 8px 0px #0FA0CE0A",
-                minHeight: "42px",
-              }}
+              className="flex items-center justify-between rounded-lg bg-white dark:bg-gray-600 px-2 py-1.5 border-none shadow-sm"
             >
-              <span className="text-[15px] text-gray-400 dark:text-gray-300 font-normal">
+              <span className="text-xs text-gray-400 dark:text-gray-300 font-normal truncate max-w-[65%]">
                 {file.name}
               </span>
               <span
-                className={`ml-3 text-sm font-medium 
+                className={`ml-1 text-[10px] font-medium px-1.5 py-0.5 rounded-full 
                 ${
                   file.status === "Active"
-                    ? "text-[#21B573]"
+                    ? "text-[#21B573] bg-[#21B573]/10"
                     : file.status === "Cancelled"
-                    ? "text-[#EA384C]"
-                    : "text-gray-400"
+                    ? "text-[#EA384C] bg-[#EA384C]/10"
+                    : "text-gray-400 bg-gray-100 dark:bg-gray-700"
                 }`}
               >
                 {file.status}
@@ -83,21 +73,20 @@ export function TechMatePanel({
         </div>
 
         {/* Train Button */}
-        <div className="flex justify-end my-3 mt-5">
+        <div className="flex justify-end my-2 mt-3">
           <Button
             onClick={onTrain}
-            className="flex items-center gap-2 bg-tertiary hover:bg-tertiary/90 transition font-semibold rounded-lg w-[104px] h-[40px] py-4 text-base shadow-md"
-            style={{ boxShadow: "0px 2px 12px 0px #3346FF26" }}
+            className="flex items-center gap-1 bg-tertiary hover:bg-tertiary/90 transition font-medium rounded-lg h-8 py-0 px-3 text-xs shadow-sm"
           >
-            <Share2 size={21} strokeWidth={2.2} className="mr-2 -ml-0" />
+            <Share2 size={14} strokeWidth={2} className="mr-1" />
             Train
           </Button>
         </div>
       </div>
 
       {/* Footer/Metadata */}
-      <div className="p-3 py-0 flex items-center justify-between bg-white dark:bg-gray-800">
-        <div className="text-[15px] text-[#717494] dark:text-gray-300 font-normal tracking-wide">
+      <div className="px-3 py-2 flex items-center justify-between bg-white dark:bg-gray-800">
+        <div className="text-[10px] text-[#717494] dark:text-gray-300 font-normal">
           {timeAgo} —{" "}
           <span className="text-[#EA384C] font-medium">
             Asked {askCount} times
@@ -106,10 +95,10 @@ export function TechMatePanel({
         <Button
           variant="ghost"
           size="icon"
-          className="text-gray-400 hover:text-red-400 hover:bg-white dark:hover:bg-gray-700"
+          className="text-gray-400 hover:text-red-400 hover:bg-gray-100 dark:hover:bg-gray-700 h-7 w-7"
           onClick={onDelete}
         >
-          <Trash2 size={23} />
+          <Trash2 size={16} />
         </Button>
       </div>
     </Card>
